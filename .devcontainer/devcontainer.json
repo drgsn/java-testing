@@ -5,7 +5,8 @@
     "ghcr.io/devcontainers/features/java:1": {
       "version": "17",
       "installGradle": true
-    }
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "customizations": {
     "vscode": {
@@ -13,10 +14,12 @@
         "vscjava.vscode-java-pack",
         "vscjava.vscode-gradle",
         "redhat.java",
-        "vscjava.vscode-java-test"
+        "vscjava.vscode-java-test",
+        "ms-azuretools.vscode-docker"
       ]
     }
   },
   "forwardPorts": [8080],
-  "postCreateCommand": "./gradlew build"
+  "postCreateCommand": "./gradlew build",
+  "runArgs": ["--init"]
 }
