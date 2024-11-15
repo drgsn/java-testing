@@ -1,0 +1,22 @@
+{
+  "name": "Java Testing Project",
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "installGradle": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle",
+        "redhat.java",
+        "vscjava.vscode-java-test"
+      ]
+    }
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "./gradlew build"
+}
