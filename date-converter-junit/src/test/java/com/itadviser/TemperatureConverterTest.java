@@ -13,19 +13,29 @@ import org.junit.jupiter.params.provider.CsvSource;
  * <p>
  * Exercises:
  * 1. Implement the missing test methods
+ *
  * 2. Find and document the bug in the converter
+ *
  * 3. Add more test cases using @ParameterizedTest
+ *
  * 4. Add tests for invalid temperatures (below absolute zero)
+ *
  * 5. Calculate and verify round-trip conversions
  *
  *
  * Assignment Tasks:
  * 1. Complete the TODO sections in TemperatureConverterTest
+ *
  * 2. Find if there is any bugs in TemperatureConverter
- * 3. Add at least 5 parameterized test cases
+ *
+ * 3. Add at least 3 parameterized test cases
+ *
  * 4. Implement round-trip conversion tests
+ *
  * 5. Add validation for physically impossible temperatures
+ *
  * 6. Document your test cases and findings
+ *
  * 7. Suggest improvements to the code
  *
  * Bonus Challenges:
