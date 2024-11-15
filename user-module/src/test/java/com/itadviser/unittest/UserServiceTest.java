@@ -30,6 +30,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Unit test suite for UserService using Mockito framework.
@@ -44,6 +46,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
     /**
      * @Mock creates a mock UserRepository:
      * - Simulates repository behavior

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *   - Uses test-specific properties
  *   - Configures test database and other test-specific beans
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class UserSystemIntegrationTest extends AbstractIntegrationTest {
@@ -49,6 +51,9 @@ class UserSystemIntegrationTest extends AbstractIntegrationTest {
      */
     @Autowired
     private MockMvc mockMvc;
+
+    @LocalServerPort
+    int port;
 
     @Autowired
     private ObjectMapper objectMapper;

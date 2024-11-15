@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 /**
  * Test class demonstrating different approaches to testing private methods in the DateTimeConverter class.
@@ -190,7 +191,8 @@ class DateTimeConverterPrivateTest {
         @DisplayName("Test using test-specific constructor")
         void testWithTestConstructor() {
             // Example usage if DateTimeConverter had a test constructor:
-            // DateTimeConverter testConverter = new DateTimeConverter(true); // testing mode
+            // boolean testingMode = true;
+            // DateTimeConverter testConverter = new DateTimeConverter(testingMode); // testing mode
             // int result = testConverter.testMillisToNanos(5);
             // assertEquals(5000000, result);
         }

@@ -4,12 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.itadvisor.DateTimeConverter;
+import java.util.function.Supplier;
+import org.joda.time.Duration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -67,16 +72,34 @@ import org.junit.jupiter.params.provider.ValueSource;
  * @see DateTimeConverter
  * @since 1.0
  */
+@TestInstance(Lifecycle.PER_CLASS)
 @DisplayName("DateTimeConverter Tests")
 class DateTimeConverterTest {
 
     private static org.joda.time.LocalDateTime jodaDateTime;
     private static java.time.LocalDateTime javaDateTime;
 
+    /**
+     * class init
+     * static code
+     * before all
+     * before each
+     * for (t : tests) {
+     *     t.execute();
+     * }
+     * after each
+     * after all
+     */
+
+    {
+        // some inits
+    }
+
     @BeforeAll
     static void setUp() {
         // This method runs once before all test methods
         System.out.println("Starting DateTimeConverter tests");
+        // insert data
     }
 
     @BeforeEach
@@ -84,6 +107,8 @@ class DateTimeConverterTest {
         // This method runs before each test
         jodaDateTime = new org.joda.time.LocalDateTime(2024, 3, 14, 15, 30, 45, 500);
         javaDateTime = java.time.LocalDateTime.of(2024, 3, 14, 15, 30, 45, 500_000_000);
+
+        // variable setup
     }
 
     @Test
@@ -91,6 +116,8 @@ class DateTimeConverterTest {
     void testJavaToJodaConversion() {
         org.joda.time.LocalDateTime converted = com.itadvisor.DateTimeConverter.toJodaDateTime(javaDateTime);
 
+        // double result = 1.20 - 1.01;
+        // assertEquals(0.19, result, 0.01) --> 0.01 delta.
         assertAll("DateTime components should match",
             () -> assertEquals(javaDateTime.getYear(), converted.getYear()),
             () -> assertEquals(javaDateTime.getMonthValue(), converted.getMonthOfYear()),
@@ -124,8 +151,9 @@ class DateTimeConverterTest {
             "Milliseconds should be preserved in round trip conversion");
     }
 
+
     @ParameterizedTest
-    @ValueSource(ints = {100, 200, 300, 400, 500})
+    @ValueSource(ints = {100, 200, 300, 400, Integer.MAX_VALUE, Integer.MIN_VALUE})
     @DisplayName("Test multiple millisecond values")
     void testMultipleMillisecondValues(int milliseconds) {
         org.joda.time.LocalDateTime original = jodaDateTime.withMillisOfSecond(milliseconds);
@@ -139,6 +167,7 @@ class DateTimeConverterTest {
     @Test
     @DisplayName("Null input handling")
     void testNullHandling() {
+
         assertThrows(NullPointerException.class, () -> {
             com.itadvisor.DateTimeConverter.toJavaDateTime(null);
         }, "Should throw NullPointerException for null input");
@@ -160,6 +189,8 @@ class DateTimeConverterTest {
         // Cleanup after each test
         jodaDateTime = null;
         javaDateTime = null;
+
+        // db cleanup
     }
 
     @AfterAll

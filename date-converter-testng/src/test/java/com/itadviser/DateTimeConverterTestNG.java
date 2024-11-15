@@ -3,7 +3,7 @@ package com.itadviser;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertThrows;
 
-import com.itadviser.DateTimeConverter;
+import com.itadvisor.DateTimeConverter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;

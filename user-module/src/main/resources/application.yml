@@ -1,7 +1,7 @@
 spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
+    enabled: false
     default-schema: public
   datasource:
     url: jdbc:postgresql://localhost:5432/userdb

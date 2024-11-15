@@ -1,4 +1,4 @@
-package com.itadviser;
+package com.itadvisor;
 
 /**
  * Utility class for converting between different temperature scales:
