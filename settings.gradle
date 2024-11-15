@@ -1,0 +1,5 @@
+rootProject.name = 'java-testing'
+include 'date-converter-junit'
+include 'date-converter-testng'
+include 'user-module'
+

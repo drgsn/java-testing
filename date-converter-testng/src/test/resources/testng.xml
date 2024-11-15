@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+    TestNG organizes tests in suites. Unlike JUnit which primarily uses annotations,
+    TestNG allows test organization through this XML configuration.
+    This provides more flexibility in running different test combinations without changing code.
+-->
+<suite name="Date and Temperature Converter Test Suite">
+
+  <!--
+  Date Converter Tests
+  In TestNG, <test> tags group related test classes.
+  JUnit equivalent would be using @Nested classes or package organization.
+  The advantage here is that you can easily include/exclude tests without code changes.
+  -->
+  <test name="DateTimeConverter Tests">
+    <classes>
+      <!--
+      TestNG allows explicit method selection in XML.
+      JUnit would require @Tag annotations and command-line filters,
+      or using @DisplayName for organization.
+      -->
+      <class name="com.itadviser.DateTimeConverterTestNG">
+        <methods>
+          <include name="testJavaToJodaConversion"/>
+          <include name="testJodaToJavaConversion"/>
+          <include name="testRoundTripConversion"/>
+          <include name="testWithMultipleMillisecondValues"/>
+          <include name="testNullHandling"/>
+          <include name="testConversionPerformance"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!--
+  Temperature Converter Tests
+  This test demonstrates TestNG's powerful grouping feature.
+  While JUnit 5 has @Tag, TestNG groups are more flexible:
+  - Can be controlled via XML without changing code
+  - Can define group dependencies (though not shown here)
+  - Can run different group combinations easily
+  -->
+  <test name="TemperatureConverter Tests">
+    <groups>
+      <run>
+        <!--
+        Group definitions - each represents a category of tests
+        basicConversions - fundamental temperature conversion tests
+        parameterized - tests with different input values (similar to JUnit's @ParameterizedTest)
+        roundTrip - tests that convert back and forth
+        validation - input validation tests
+        bugs - regression tests for fixed bugs
+        edgeCases - boundary and extreme value tests
+        -->
+        <include name="basicConversions"/>
+        <include name="parameterized"/>
+        <include name="roundTrip"/>
+        <include name="validation"/>
+        <include name="bugs"/>
+        <include name="edgeCases"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.itadviser.TemperatureConverterTestNG"/>
+    </classes>
+  </test>
+
+  <!--
+  Parallel Test Example
+  TestNG's parallel execution is more configurable than JUnit:
+  - Can parallelize at suite/test/class/method level
+  - Can specify thread count per test
+  - JUnit 5 uses @Execution(CONCURRENT) with less granular control
+
+  parallel="methods" - runs individual test methods in parallel
+  thread-count="2" - uses 2 threads for execution
+  -->
+  <test name="Parallel Tests" parallel="methods" thread-count="2">
+    <classes>
+      <class name="com.itadviser.TemperatureConverterTestNG">
+        <methods>
+          <!--
+          These specific methods will run in parallel.
+          In JUnit, you'd need to use @RepeatedTest or custom configuration
+          to achieve similar parallel execution control.
+          -->
+          <include name="testWaterFreezingPoint"/>
+          <include name="testWaterBoilingPoint"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

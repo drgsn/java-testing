@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.itadviser'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation 'joda-time:joda-time:2.12.7'
+    testImplementation 'org.testng:testng:7.10.2'
+}
+
+test {
+    useTestNG()
+}

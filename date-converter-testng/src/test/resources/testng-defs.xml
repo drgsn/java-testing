@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+TestNG Suite Configuration
+Unlike JUnit, TestNG uses XML configuration for advanced test organization and parallel execution.
+JUnit 5 uses @Tag for similar grouping, but TestNG's XML approach offers more flexibility.
+-->
+<suite name="TestSuite" verbose="1" parallel="methods" thread-count="2">
+
+  <!--
+  Test Suite Parameters (Global)
+  - Can be accessed in any test using @Parameters
+  - JUnit doesn't have built-in parameter passing via configuration
+  - In JUnit, you'd typically use @ParameterizedTest or external configuration
+  -->
+  <parameter name="browser" value="chrome"/>
+  <parameter name="environment" value="qa"/>
+
+  <!--
+  Listeners Section
+  - TestNG listeners can be configured here or via annotations
+  - Similar to JUnit's TestExecutionListener but with XML configuration option
+  - More flexible than JUnit's @ExtendWith approach
+  -->
+  <listeners>
+    <listener class-name="com.example.TestListener"/>
+  </listeners>
+
+  <!--
+  Test Groups Definition
+  - Groups in TestNG are more powerful than JUnit tags
+  - Can define group dependencies and exclusions
+  - JUnit 5's @Tag is simpler and lacks hierarchical organization
+  -->
+  <groups>
+    <define name="all">
+      <include name="smoke"/>
+      <include name="regression"/>
+    </define>
+    <dependencies>
+      <!-- Group Dependencies: Not available in JUnit -->
+      <group name="regression" depends-on="smoke"/>
+    </dependencies>
+    <run>
+      <include name="smoke"/>
+      <!-- Can exclude specific groups from execution -->
+      <exclude name="broken"/>
+    </run>
+  </groups>
+
+  <!--
+  Test Definition
+  - Similar to JUnit's @Nested classes but more configurable
+  - Can have multiple <test> tags for different test scenarios
+  - Each test can have its own thread count and parallel execution settings
+  -->
+  <test name="Regression Tests" preserve-order="true">
+    <!--
+    Test-level parameters
+    - Override suite parameters
+    - Scope limited to this test tag
+    -->
+    <parameter name="test-data" value="regression-data.json"/>
+
+    <!--
+    Package Level Configuration
+    - Can include/exclude entire packages
+    - More granular than JUnit's package scanning
+    -->
+    <packages>
+      <package name="com.example.tests.regression.*"/>
+    </packages>
+
+    <!--
+    Class Level Configuration
+    - Similar to JUnit's @SelectClasses but with XML configuration
+    - Can include/exclude specific methods within classes
+    -->
+    <classes>
+      <class name="com.example.tests.LoginTest">
+        <methods>
+          <include name="testSuccessfulLogin"/>
+          <exclude name="testFailedLogin"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!--
+  Parallel Test Execution
+  - TestNG offers more control over parallel execution via XML
+  - Can set different parallel strategies per test
+  - JUnit 5 uses @Execution(CONCURRENT) with less granular control
+  -->
+  <test name="API Tests" parallel="classes" thread-count="3">
+    <classes>
+      <class name="com.example.tests.api.UserAPITest"/>
+      <class name="com.example.tests.api.ProductAPITest"/>
+    </classes>
+  </test>
+
+</suite>

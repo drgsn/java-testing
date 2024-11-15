@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarLintProjectSettings">
+    <option name="moduleMapping">
+      <map>
+        <entry key="date-convertor-junit" value="date-convertor" />
+        <entry key="java-testing.date-converter-junit" value="java-testing.date-convertor-junit" />
+      </map>
+    </option>
+  </component>
+</project>
