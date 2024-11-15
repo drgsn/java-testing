@@ -89,7 +89,7 @@ class DateTimeConverterTest {
     @Test
     @DisplayName("Converting from Java to Joda maintains precision")
     void testJavaToJodaConversion() {
-        org.joda.time.LocalDateTime converted = com.itadviser.DateTimeConverter.toJodaDateTime(javaDateTime);
+        org.joda.time.LocalDateTime converted = com.itadvisor.DateTimeConverter.toJodaDateTime(javaDateTime);
 
         assertAll("DateTime components should match",
             () -> assertEquals(javaDateTime.getYear(), converted.getYear()),
@@ -105,7 +105,7 @@ class DateTimeConverterTest {
     @Test
     @DisplayName("Converting from Joda to Java reveals precision bug")
     void testJodaToJavaConversion() {
-        java.time.LocalDateTime converted = com.itadviser.DateTimeConverter.toJavaDateTime(jodaDateTime);
+        java.time.LocalDateTime converted = com.itadvisor.DateTimeConverter.toJavaDateTime(jodaDateTime);
 
         // This test will fail due to the bug!
         assertEquals(500_000_000, converted.getNano(),
@@ -116,8 +116,8 @@ class DateTimeConverterTest {
     @DisplayName("Round trip conversion shows data loss")
     void testRoundTripConversion() {
         // Convert Joda -> Java -> Joda
-        java.time.LocalDateTime intermediateJava = com.itadviser.DateTimeConverter.toJavaDateTime(jodaDateTime);
-        org.joda.time.LocalDateTime roundTripped = com.itadviser.DateTimeConverter.toJodaDateTime(intermediateJava);
+        java.time.LocalDateTime intermediateJava = com.itadvisor.DateTimeConverter.toJavaDateTime(jodaDateTime);
+        org.joda.time.LocalDateTime roundTripped = com.itadvisor.DateTimeConverter.toJodaDateTime(intermediateJava);
 
         // This assertion will fail due to the bug
         assertEquals(jodaDateTime.getMillisOfSecond(), roundTripped.getMillisOfSecond(),
@@ -129,7 +129,7 @@ class DateTimeConverterTest {
     @DisplayName("Test multiple millisecond values")
     void testMultipleMillisecondValues(int milliseconds) {
         org.joda.time.LocalDateTime original = jodaDateTime.withMillisOfSecond(milliseconds);
-        java.time.LocalDateTime converted = com.itadviser.DateTimeConverter.toJavaDateTime(original);
+        java.time.LocalDateTime converted = com.itadvisor.DateTimeConverter.toJavaDateTime(original);
 
         // This will fail due to the bug
         assertEquals(milliseconds * 1_000_000, converted.getNano(),
@@ -140,7 +140,7 @@ class DateTimeConverterTest {
     @DisplayName("Null input handling")
     void testNullHandling() {
         assertThrows(NullPointerException.class, () -> {
-            com.itadviser.DateTimeConverter.toJavaDateTime(null);
+            com.itadvisor.DateTimeConverter.toJavaDateTime(null);
         }, "Should throw NullPointerException for null input");
     }
 
@@ -150,8 +150,8 @@ class DateTimeConverterTest {
     void testConversionPerformance() {
         // Test should complete within 1 second
         for (int i = 0; i < 1000; i++) {
-            com.itadviser.DateTimeConverter.toJavaDateTime(jodaDateTime);
-            com.itadviser.DateTimeConverter.toJodaDateTime(javaDateTime);
+            com.itadvisor.DateTimeConverter.toJavaDateTime(jodaDateTime);
+            com.itadvisor.DateTimeConverter.toJodaDateTime(javaDateTime);
         }
     }
 

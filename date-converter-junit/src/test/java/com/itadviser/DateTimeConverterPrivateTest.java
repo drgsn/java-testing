@@ -2,7 +2,7 @@ package com.itadviser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.itadviser.DateTimeConverter;
+import com.itadvisor.DateTimeConverter;
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

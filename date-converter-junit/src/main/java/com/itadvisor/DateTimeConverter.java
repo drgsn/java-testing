@@ -1,4 +1,4 @@
-package com.itadviser;
+package com.itadvisor;
 
 import java.time.ZoneId;
 import java.util.Objects;
